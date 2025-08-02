@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký Thành viên | F-Học Portal</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap');
+
+        :root {
+            --fpt-orange: #FF6600;
+            --primary-color: #4a69bd;
+            --primary-color-light: #f0f3ff;
+            --text-dark: #343a40;
+            --text-light: #6c757d;
+            --background-color: #f0f2f5;
+            --card-background: rgba(255, 255, 255, 0.25);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: rgba(255, 255, 255, 0.4);
+            --success-color: #2ecc71;
+            --red: #e74c3c;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0;
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .form-container {
+            background-color: var(--card-background);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInDown 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .form-header h1 {
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group label .required {
+            color: var(--red);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="url"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #333;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--fpt-orange);
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.3);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .radio-group .radio-item {
+            display: inline-block; 
+            margin-right: 10px;
+        }
+        
+        .radio-group input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .radio-group label {
+            display: inline-block;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: rgba(255,255,255,0.4);
+        }
+        
+        .radio-group input[type="radio"]:checked + label {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(74, 105, 189, 0.3);
+        }
+
+        .input-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .input-grid .form-group {
+            flex: 1;
+            min-width: calc(50% - 10px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--fpt-orange);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #e65c00;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 102, 0, 0.3);
+        }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        .submit-btn.loading .spinner { display: block; }
+        .submit-btn.loading span { display: none; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        #successMessage {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        #successMessage i {
+            font-size: 60px;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+        
+        .department-details {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.5s;
+        }
+        
+        .department-details.visible { display: block; }
+
+        .department-details h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .department-details p, .department-details li {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .department-details ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 600px) {
+            .input-grid {
+                flex-direction: column;
+                gap: 0;
+            }
+            .input-grid .form-group {
+                min-width: 100%;
+            }
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <div id="registrationForm">
+            <div class="form-header">
+                <img src="https://i.ibb.co/G3n129SV/376711044-972555127379465-1600218481060437658-n-removebg-preview.png" alt="F-Hoc Logo">
+                <h1>Phiếu Đăng ký Thành viên</h1>
+                <p>CLB F-Học - THPT FPT Cần Thơ</p>
+            </div>
+            <form id="regForm">
+                <div class="input-grid">
+                    <div class="form-group"><label for="email">Email<span class="required">*</span></label><input type="email" id="email" required></div>
+                    <div class="form-group"><label for="displayName">Họ và tên<span class="required">*</span></label><input type="text" id="displayName" required></div>
+                </div>
+                <div class="input-grid">
+                    <div class="form-group"><label for="class">Lớp<span class="required">*</span></label><input type="text" id="class" required></div>
+                    <div class="form-group"><label for="studentId">MSHS<span class="required">*</span></label><input type="text" id="studentId" required></div>
+                </div>
+                 <div class="input-grid">
+                    <div class="form-group"><label for="phone">Số điện thoại<span class="required">*</span></label><input type="tel" id="phone" required></div>
+                    <div class="form-group"><label for="facebookUrl">Link Facebook<span class="required">*</span></label><input type="url" id="facebookUrl" required></div>
+                </div>
+                <div class="input-grid">
+                    <div class="form-group"><label for="dorm">Dorm<span class="required">*</span></label><input type="text" id="dorm" required></div>
+                    <div class="form-group"><label for="homeroomTeacher">Tên GVCN<span class="required">*</span></label><input type="text" id="homeroomTeacher" required></div>
+                </div>
+                <div class="form-group"><label for="managingTeacher">Tên GVQN<span class="required">*</span></label><input type="text" id="managingTeacher" required></div>
+                
+                <div class="form-group">
+                    <label for="sourceOfInformation">Bạn biết đến CLB F-Học từ đâu?</label>
+                    <input type="text" id="sourceOfInformation">
+                </div>
+
+                <div class="form-group">
+                    <label>Bạn mong muốn tham gia vào ban nào của CLB?<span class="required">*</span></label>
+                    <div class="radio-group">
+                        <span class="radio-item"><input type="radio" id="deptCM" name="department" value="Chuyên môn" data-details-id="details-cm" required><label for="deptCM">Ban chuyên môn</label></span>
+                        <span class="radio-item"><input type="radio" id="deptTT" name="department" value="Truyền thông" data-details-id="details-tt" required><label for="deptTT">Ban truyền thông</label></span>
+                        <span class="radio-item"><input type="radio" id="deptNS" name="department" value="Nhân sự - Hậu cần - Tài chính" data-details-id="details-ns" required><label for="deptNS">Ban NS-HC-TC</label></span>
+                        <span class="radio-item"><input type="radio" id="deptDN" name="department" value="Đối ngoại" data-details-id="details-dn" required><label for="deptDN">Ban đối ngoại</label></span>
+                    </div>
+                    <!-- Department Details Sections -->
+                    <div id="departmentDetailsContainer">
+                        <div id="details-cm" class="department-details">
+                            <h4>🌟 Ban chuyên môn</h4>
+                            <p><b>Mô tả:</b> Các bạn sẽ tham gia với vai trò là người giúp đỡ các bạn có nền tảng kiến thức chưa vững và hỗ trợ các bạn lấy lại gốc trong môn học thuộc phân ban của bản thân. Hoạt động chủ yếu tại các lớp học phụ đạo, đóng vai trò như trợ giảng.</p>
+                            <p><b>Các môn chính:</b> Toán, Lý, Hóa, Tiếng Anh.</p>
+                            <ul>
+                                <li><b>Trưởng ban:</b> Quản lý nhân sự và công việc của các thành viên.</li>
+                                <li><b>Trưởng môn:</b> Thu thập tài liệu và phân công cho các thành viên trong môn mình quản lý.</li>
+                                <li><b>Thành viên:</b> Bắt buộc tham gia 100% các hoạt động được phổ biến.</li>
+                            </ul>
+                        </div>
+                        <div id="details-tt" class="department-details">
+                            <h4>🎶 Ban truyền thông</h4>
+                            <p><b>Mô tả:</b> Hoạt động chủ yếu trên 2 nền tảng chính là Tiktok (podcast) và Facebook (thông báo, sự kiện, hình ảnh). </p>
+                             <ul>
+                                <li><b>Trưởng ban:</b> Lên kế hoạch, đo lường hiệu quả và quản lý thành viên.</li>
+                                <li><b>Tiểu ban content:</b> Viết và lên ý tưởng content.</li>
+                                <li><b>Tiểu ban podcast:</b> Thu âm và lên kịch bản cho podcast.</li>
+                                <li><b>Tiểu ban design:</b> Thiết kế các ấn phẩm truyền thông.</li>
+                                <li><b>Photographer:</b> Chụp ảnh/video làm tư liệu.</li>
+                            </ul>
+                        </div>
+                        <div id="details-ns" class="department-details">
+                            <h4>🌤️ Ban Nhân sự - Hậu cần - Tài chính</h4>
+                            <p><b>Mô tả:</b> Tham gia vào các sự kiện với vai trò là Ban Tổ Chức, giúp nâng cao kinh nghiệm qua việc xây dựng kế hoạch tài chính hay trải nghiệm thực tế.</p>
+                             <ul>
+                                <li><b>Trưởng ban:</b> Quản lý nhân sự toàn CLB, điều phối sự kiện.</li>
+                                <li><b>Thủ quỹ:</b> Quản lý thu chi, dự trù kinh phí cho các hoạt động.</li>
+                                <li><b>Thành viên:</b> Tham gia và trải nghiệm trong các hoạt động, sự kiện của CLB.</li>
+                            </ul>
+                        </div>
+                        <div id="details-dn" class="department-details">
+                            <h4>💕 Ban đối ngoại</h4>
+                            <p><b>Mô tả:</b> Trao đổi với đối tác trong và ngoài CLB, chủ yếu là liên hệ với học sinh và giáo viên để đề nghị hợp tác.</p>
+                            <ul>
+                                <li><b>Trưởng ban:</b> Phân công, quản lý công việc, phân tích đối tượng hợp tác.</li>
+                                <li><b>Thành viên:</b> Liên hệ với các thầy cô, CLB để đàm phán và trao đổi.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group"><label for="talents">Bạn có năng khiếu/sở trường gì đặc biệt không?</label><textarea id="talents"></textarea></div>
+                <div class="form-group"><label for="expectations">Bạn mong muốn điều gì khi tham gia vào CLB F-Học?<span class="required">*</span></label><textarea id="expectations" required></textarea></div>
+
+                <button type="submit" class="submit-btn" id="submitButton">
+                    <span>Gửi Đơn Đăng ký</span>
+                    <div class="spinner"></div>
+                </button>
+            </form>
+        </div>
+        <div id="successMessage">
+            <i class='bx bxs-check-circle'></i>
+            <h2>Đăng ký thành công!</h2>
+            <p>Cảm ơn bạn đã quan tâm đến CLB F-Học. Chúng tôi đã nhận được thông tin và sẽ liên hệ với bạn sớm nhất.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCuCq6M3J-GXVNBlWDB6DASDdQUt9Pjedk",
+            authDomain: "f-hoc-portal-app.firebaseapp.com",
+            projectId: "f-hoc-portal-app",
+            storageBucket: "f-hoc-portal-app.appspot.com",
+            messagingSenderId: "922532756868",
+            appId: "1:922532756868:web:49780833880b310d1c71d1",
+            measurementId: "G-8HNYH3VXVH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const regForm = document.getElementById('regForm');
+        const submitButton = document.getElementById('submitButton');
+        const departmentRadios = document.querySelectorAll('input[name="department"]');
+        const detailDivs = document.querySelectorAll('.department-details');
+
+        // Logic to show department details
+        departmentRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                detailDivs.forEach(div => div.classList.remove('visible'));
+                if (radio.checked) {
+                    const detailId = radio.dataset.detailsId;
+                    document.getElementById(detailId).classList.add('visible');
+                }
+            });
+        });
+
+        regForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitButton.classList.add('loading');
+            
+            const email = document.getElementById('email').value;
+            
+            const appQuery = query(collection(db, "applications"), where("email", "==", email));
+            const appSnapshot = await getDocs(appQuery);
+
+            if (!appSnapshot.empty) {
+                alert("Email này đã được sử dụng để đăng ký. Vui lòng chờ duyệt hoặc sử dụng email khác.");
+                submitButton.classList.remove('loading');
+                return;
+            }
+
+            const department = document.querySelector('input[name="department"]:checked').value;
+
+            const formData = {
+                email: email,
+                displayName: document.getElementById('displayName').value,
+                class: document.getElementById('class').value,
+                studentId: document.getElementById('studentId').value,
+                phone: document.getElementById('phone').value,
+                facebookUrl: document.getElementById('facebookUrl').value,
+                dorm: document.getElementById('dorm').value,
+                homeroomTeacher: document.getElementById('homeroomTeacher').value,
+                managingTeacher: document.getElementById('managingTeacher').value,
+                sourceOfInformation: document.getElementById('sourceOfInformation').value,
+                desiredDepartment: department,
+                talents: document.getElementById('talents').value,
+                expectations: document.getElementById('expectations').value,
+                status: 'pending',
+                submittedAt: serverTimestamp()
+            };
+
+            try {
+                await addDoc(collection(db, "applications"), formData);
+                document.getElementById('registrationForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+                submitButton.classList.remove('loading');
+            }
+        });
+    </script>
+
+</body>
+</html>

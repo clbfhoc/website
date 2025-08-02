@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản lý F-HỌC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-button.active {
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+            color: #4f46e5;
+        }
+        #edit-modal, #delete-modal {
+            background-color: rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Login Section -->
+    <section id="login-section" class="flex items-center justify-center min-h-screen bg-gray-100">
+        <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+            <div class="text-center">
+                <img src="https://i.ibb.co/XZJGDRWC/376711044-972555127379465-1600218481060437658-n-removebg-preview.png" alt="F-HỌC Logo" class="h-16 w-auto mx-auto mb-4">
+                <h1 class="text-2xl font-bold text-gray-800">Đăng Nhập Admin</h1>
+            </div>
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-slate-600">Tài khoản</label>
+                    <input type="text" id="username" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="admin">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-600">Mật khẩu</label>
+                    <input type="password" id="password" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" value="admin">
+                </div>
+                <p id="login-error" class="text-red-500 text-sm text-center hidden">Tài khoản hoặc mật khẩu không đúng.</p>
+                <button type="submit" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-3 rounded-full shadow-md hover:shadow-lg transition-all font-semibold">Đăng Nhập</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Admin Panel Section -->
+    <section id="admin-panel" class="hidden py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Trang Quản Trị F-HỌC</h1>
+                <button id="logout-button" class="text-sm text-red-600 hover:underline">Đăng xuất</button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="mb-6 border-b border-gray-200">
+                <nav class="flex space-x-4" aria-label="Tabs">
+                    <button id="tab-create" class="tab-button active font-semibold px-4 py-2 text-sm rounded-t-md border-b-2">Tạo Bài Mới</button>
+                    <button id="tab-manage-news" class="tab-button font-semibold px-4 py-2 text-sm text-gray-500 border-b-2 border-transparent">Quản lý Tin Tức</button>
+                    <button id="tab-manage-humans" class="tab-button font-semibold px-4 py-2 text-sm text-gray-500 border-b-2 border-transparent">Quản lý Humans Story</button>
+                </nav>
+            </div>
+            
+            <!-- Create Post Container -->
+            <div id="create-post-container">
+                <!-- Create News/Humans Tabs -->
+                <div class="mb-6 border-b border-gray-200">
+                    <nav class="flex space-x-2" aria-label="Create Tabs">
+                        <button id="tab-create-news" class="tab-button active font-semibold px-3 py-1 text-xs rounded-md">Tạo Tin Tức</button>
+                        <button id="tab-create-humans" class="tab-button font-semibold px-3 py-1 text-xs text-gray-500">Tạo Humans Story</button>
+                    </nav>
+                </div>
+                <!-- Create News Form -->
+                <div id="news-form-container">
+                    <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Tạo Bài Đăng F-HỌC NEWS</h2>
+                        <form id="post-form" class="space-y-6">
+                            <!-- Fields populated by JS -->
+                        </form>
+                    </div>
+                </div>
+                <!-- Create Humans Form -->
+                <div id="humans-form-container" class="hidden">
+                    <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">Tạo Bài Đăng Humans of F-HỌC</h2>
+                        <form id="humans-form" class="space-y-6">
+                             <!-- Fields populated by JS -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage News Container -->
+            <div id="manage-news-container" class="hidden">
+                 <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6">Danh sách Tin Tức</h2>
+                    <div id="news-list" class="overflow-x-auto"></div>
+                 </div>
+            </div>
+
+            <!-- Manage Humans Container -->
+            <div id="manage-humans-container" class="hidden">
+                <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6">Danh sách Humans of F-HỌC</h2>
+                    <div id="humans-list" class="overflow-x-auto"></div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8">
+            <h2 id="edit-modal-title" class="text-2xl font-bold text-slate-800 mb-6">Chỉnh sửa bài đăng</h2>
+            <form id="edit-form" class="space-y-6"></form>
+            <button id="close-edit-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md p-8 text-center">
+            <h2 class="text-xl font-bold text-slate-800 mb-4">Xác nhận Xóa</h2>
+            <p class="text-slate-500 mb-6">Bạn có chắc chắn muốn xóa bài đăng này không? Hành động này không thể hoàn tác.</p>
+            <div class="flex justify-center gap-4">
+                <button id="cancel-delete" class="px-6 py-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold">Hủy</button>
+                <button id="confirm-delete" class="px-6 py-2 rounded-full bg-red-600 hover:bg-red-700 text-white font-semibold">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getFirestore, collection, addDoc, getDocs, doc, getDoc, updateDoc, deleteDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyBUdTcUcncT4nB8utQnWyqYI0qU4SQTzq4",
+        authDomain: "f-hoc-website.firebaseapp.com",
+        projectId: "f-hoc-website",
+        storageBucket: "f-hoc-website.appspot.com",
+        messagingSenderId: "191480054688",
+        appId: "1:191480054688:web:5792bee8e8208b7f785ac5",
+        measurementId: "G-E26HVXWSLW"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const IMGBB_API_KEY = 'ca8573a2f4909da7fc79524ae5244bf0';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // --- All UI Elements ---
+        const loginSection = document.getElementById('login-section');
+        const adminPanel = document.getElementById('admin-panel');
+        const loginForm = document.getElementById('login-form');
+        const logoutButton = document.getElementById('logout-button');
+        
+        const tabCreate = document.getElementById('tab-create');
+        const tabManageNews = document.getElementById('tab-manage-news');
+        const tabManageHumans = document.getElementById('tab-manage-humans');
+        const createPostContainer = document.getElementById('create-post-container');
+        const manageNewsContainer = document.getElementById('manage-news-container');
+        const manageHumansContainer = document.getElementById('manage-humans-container');
+        
+        const tabCreateNews = document.getElementById('tab-create-news');
+        const tabCreateHumans = document.getElementById('tab-create-humans');
+        const newsFormContainer = document.getElementById('news-form-container');
+        const humansFormContainer = document.getElementById('humans-form-container');
+
+        const editModal = document.getElementById('edit-modal');
+        const deleteModal = document.getElementById('delete-modal');
+        const editForm = document.getElementById('edit-form');
+        const closeEditModalBtn = document.getElementById('close-edit-modal');
+        const cancelDeleteBtn = document.getElementById('cancel-delete');
+        const confirmDeleteBtn = document.getElementById('confirm-delete');
+
+        let currentCollection = '';
+        let currentDocId = '';
+
+        // --- Login & Session Logic ---
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (document.getElementById('username').value === 'admin' && document.getElementById('password').value === 'admin') {
+              sessionStorage.setItem('isAdminLoggedIn', 'true');
+              showAdminPanel();
+          } else {
+              document.getElementById('login-error').classList.remove('hidden');
+          }
+        });
+
+        logoutButton.addEventListener('click', () => {
+          sessionStorage.removeItem('isAdminLoggedIn');
+          window.location.reload();
+        });
+        
+        function showAdminPanel() {
+            loginSection.classList.add('hidden');
+            adminPanel.classList.remove('hidden');
+        }
+
+        if (sessionStorage.getItem('isAdminLoggedIn') === 'true') {
+            showAdminPanel();
+        }
+        
+        // --- Main Tab Switching ---
+        function switchMainTab(activeTab) {
+            [tabCreate, tabManageNews, tabManageHumans].forEach(tab => tab.classList.remove('active'));
+            [createPostContainer, manageNewsContainer, manageHumansContainer].forEach(container => container.classList.add('hidden'));
+
+            if (activeTab === 'create') {
+                tabCreate.classList.add('active');
+                createPostContainer.classList.remove('hidden');
+            } else if (activeTab === 'manage-news') {
+                tabManageNews.classList.add('active');
+                manageNewsContainer.classList.remove('hidden');
+                fetchAndDisplayPosts('news');
+            } else if (activeTab === 'manage-humans') {
+                tabManageHumans.classList.add('active');
+                manageHumansContainer.classList.remove('hidden');
+                fetchAndDisplayPosts('humans');
+            }
+        }
+        
+        tabCreate.addEventListener('click', () => switchMainTab('create'));
+        tabManageNews.addEventListener('click', () => switchMainTab('manage-news'));
+        tabManageHumans.addEventListener('click', () => switchMainTab('manage-humans'));
+
+        // --- Create Form Tab Switching ---
+        tabCreateNews.addEventListener('click', () => {
+            tabCreateNews.classList.add('active');
+            tabCreateHumans.classList.remove('active');
+            newsFormContainer.classList.remove('hidden');
+            humansFormContainer.classList.add('hidden');
+        });
+        tabCreateHumans.addEventListener('click', () => {
+            tabCreateHumans.classList.add('active');
+            tabCreateNews.classList.remove('active');
+            humansFormContainer.classList.remove('hidden');
+            newsFormContainer.classList.add('hidden');
+        });
+        
+        // --- Fetch and Display Posts for Management ---
+        async function fetchAndDisplayPosts(collectionName) {
+            const listContainer = document.getElementById(`${collectionName}-list`);
+            listContainer.innerHTML = '<p>Đang tải danh sách...</p>';
+            try {
+                const q = query(collection(db, collectionName), orderBy("timestamp", "desc"));
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    listContainer.innerHTML = '<p>Không có bài đăng nào.</p>';
+                    return;
+                }
+                
+                let tableHTML = `<table class="w-full text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3">Tiêu đề / Tên</th>
+                                            <th scope="col" class="px-6 py-3">Ngày đăng</th>
+                                            <th scope="col" class="px-6 py-3 text-right">Hành động</th>
+                                        </tr>
+                                    </thead><tbody>`;
+
+                querySnapshot.forEach(doc => {
+                    const data = doc.data();
+                    const title = data.title || data.name;
+                    const date = data.timestamp ? data.timestamp.toDate().toLocaleDateString('vi-VN') : 'N/A';
+                    tableHTML += `<tr class="bg-white border-b">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${title}</th>
+                                    <td class="px-6 py-4">${date}</td>
+                                    <td class="px-6 py-4 text-right space-x-2">
+                                        <a href="post-view.html?id=${doc.id}" target="_blank" class="font-medium text-blue-600 hover:underline">Xem</a>
+                                        <button class="font-medium text-indigo-600 hover:underline btn-edit" data-id="${doc.id}" data-collection="${collectionName}">Sửa</button>
+                                        <button class="font-medium text-red-600 hover:underline btn-delete" data-id="${doc.id}" data-collection="${collectionName}">Xoá</button>
+                                    </td>
+                                  </tr>`;
+                });
+                tableHTML += '</tbody></table>';
+                listContainer.innerHTML = tableHTML;
+            } catch (error) {
+                console.error(`Error fetching ${collectionName}:`, error);
+                listContainer.innerHTML = `<p class="text-red-500">Lỗi khi tải danh sách.</p>`;
+            }
+        }
+        
+        // --- Event Delegation for Edit/Delete ---
+        document.body.addEventListener('click', function(event) {
+            if (event.target.classList.contains('btn-delete')) {
+                currentDocId = event.target.dataset.id;
+                currentCollection = event.target.dataset.collection;
+                deleteModal.classList.remove('hidden');
+                deleteModal.classList.add('flex');
+            }
+            if (event.target.classList.contains('btn-edit')) {
+                handleEditClick(event.target);
+            }
+        });
+
+        async function handleEditClick(btn) {
+            currentDocId = btn.dataset.id;
+            currentCollection = btn.dataset.collection;
+            try {
+                const docRef = doc(db, currentCollection, currentDocId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    populateEditForm(docSnap.data());
+                    editModal.classList.remove('hidden');
+                    editModal.classList.add('flex');
+                } else {
+                    alert("Không tìm thấy bài đăng!");
+                }
+            } catch (error) {
+                console.error("Error fetching doc for edit:", error);
+                alert("Lỗi khi tải dữ liệu để sửa.");
+            }
+        }
+        
+        confirmDeleteBtn.addEventListener('click', async () => {
+            try {
+                await deleteDoc(doc(db, currentCollection, currentDocId));
+                alert('Xóa thành công!');
+                fetchAndDisplayPosts(currentCollection);
+            } catch (error) {
+                console.error("Error deleting document:", error);
+                alert('Xóa thất bại!');
+            } finally {
+                closeDeleteModal();
+            }
+        });
+        
+        function populateEditForm(data) {
+            // Populate form logic here...
+        }
+
+        // --- Modal Controls ---
+        function closeEditModal() { editModal.classList.add('hidden'); editModal.classList.remove('flex'); }
+        function closeDeleteModal() { deleteModal.classList.add('hidden'); deleteModal.classList.remove('flex'); }
+        closeEditModalBtn.addEventListener('click', closeEditModal);
+        cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+
+        // --- Reusable Functions ---
+        function setupImagePreview(inputElement, previewElement) {
+          inputElement.addEventListener('change', (e) => {
+              const file = e.target.files[0];
+              if (file) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                      previewElement.src = event.target.result;
+                      previewElement.classList.remove('hidden');
+                  }
+                  reader.readAsDataURL(file);
+              }
+          });
+        }
+
+        async function uploadImageToImgBB(imageFile) {
+          if (!imageFile) return '';
+          const formData = new FormData();
+          formData.append('image', imageFile);
+          const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+              method: 'POST',
+              body: formData
+          });
+          const result = await response.json();
+          if (result.success) {
+              return result.data.url;
+          } else {
+              throw new Error('Tải ảnh lên thất bại: ' + result.error.message);
+          }
+        }
+
+        function setLoading(isLoading, type) {
+            const button = type === 'news' ? document.getElementById('submit-post-button') : document.getElementById('submit-human-button');
+            const text = type === 'news' ? document.getElementById('submit-text-news') : document.getElementById('submit-text-human');
+            const spinner = type === 'news' ? document.getElementById('submit-spinner-news') : document.getElementById('submit-spinner-human');
+            
+            if (button) {
+                button.disabled = isLoading;
+                if (isLoading) {
+                    text.classList.add('hidden');
+                    spinner.classList.remove('hidden');
+                } else {
+                    text.classList.remove('hidden');
+                    spinner.classList.add('hidden');
+                }
+            }
+        }
+
+        function showFeedback(message, color, type) {
+            const feedbackEl = type === 'news' ? document.getElementById('post-feedback-news') : document.getElementById('post-feedback-human');
+            if(feedbackEl) {
+                feedbackEl.textContent = message;
+                feedbackEl.className = `text-center text-sm mt-4 text-${color}-600`;
+                setTimeout(() => {
+                    feedbackEl.textContent = '';
+                }, 5000);
+            }
+        }
+
+        // --- Initialize Create Forms ---
+        const postFormEl = document.getElementById('post-form');
+        const humansFormEl = document.getElementById('humans-form');
+        
+        postFormEl.innerHTML = `
+            <div><label for="post-title" class="block text-sm font-medium text-slate-600">Tiêu đề bài viết</label><input type="text" id="post-title" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
+            <div><label for="post-category" class="block text-sm font-medium text-slate-600">Danh mục</label><select id="post-category" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"><option value="Sự kiện">Sự kiện</option><option value="Cuộc thi">Cuộc thi</option><option value="Thông báo">Thông báo</option></select></div>
+            <div><label for="post-excerpt" class="block text-sm font-medium text-slate-600">Đoạn trích ngắn</label><textarea id="post-excerpt" rows="3" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea></div>
+            <div><label for="post-image" class="block text-sm font-medium text-slate-600">Ảnh bìa</label><input type="file" id="post-image" accept="image/*" class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"><img id="post-image-preview" src="" alt="Xem trước ảnh" class="mt-4 rounded-lg max-h-60 hidden"></div>
+            <div><label for="post-content" class="block text-sm font-medium text-slate-600">Nội dung</label><textarea id="post-content" rows="10" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea></div>
+            <div><button type="submit" id="submit-post-button" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-3 rounded-full shadow-md font-semibold flex items-center justify-center"><span id="submit-text-news">Đăng Bài</span><span id="submit-spinner-news" class="hidden"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Đang xử lý...</span></button></div>
+            <p id="post-feedback-news" class="text-center text-sm mt-4"></p>
+        `;
+        
+        humansFormEl.innerHTML = `
+            <div><label for="human-title" class="block text-sm font-medium text-slate-600">Tiêu Đề</label><input type="text" id="human-title" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
+            <div><label for="human-cover-image" class="block text-sm font-medium text-slate-600">Ảnh Bìa</label><input type="file" id="human-cover-image" accept="image/*" class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"><img id="human-cover-image-preview" src="" alt="Xem trước ảnh" class="mt-4 rounded-lg max-h-60 hidden"></div>
+            <div><label for="human-content-image" class="block text-sm font-medium text-slate-600">Ảnh trong nội dung</label><input type="file" id="human-content-image" accept="image/*" class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"><img id="human-content-image-preview" src="" alt="Xem trước ảnh" class="mt-4 rounded-lg max-h-60 hidden"></div>
+            <div><label for="human-story" class="block text-sm font-medium text-slate-600">Câu chuyện</label><textarea id="human-story" rows="10" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea></div>
+            <div><button type="submit" id="submit-human-button" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-3 rounded-full shadow-md font-semibold flex items-center justify-center"><span id="submit-text-human">Đăng Story</span><span id="submit-spinner-human" class="hidden"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Đang xử lý...</span></button></div>
+            <p id="post-feedback-human" class="text-center text-sm mt-4"></p>
+        `;
+        
+        const postImageInput = document.getElementById('post-image');
+        const postImagePreview = document.getElementById('post-image-preview');
+        const humanCoverImageInput = document.getElementById('human-cover-image');
+        const humanCoverImagePreview = document.getElementById('human-cover-image-preview');
+        const humanContentImageInput = document.getElementById('human-content-image');
+        const humanContentImagePreview = document.getElementById('human-content-image-preview');
+        
+        setupImagePreview(postImageInput, postImagePreview);
+        setupImagePreview(humanCoverImageInput, humanCoverImagePreview);
+        setupImagePreview(humanContentImageInput, humanContentImagePreview);
+
+        postFormEl.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            setLoading(true, 'news');
+            try {
+                const imageUrl = await uploadImageToImgBB(postImageInput.files[0]);
+                await addDoc(collection(db, "news"), {
+                    title: document.getElementById('post-title').value,
+                    category: document.getElementById('post-category').value,
+                    excerpt: document.getElementById('post-excerpt').value,
+                    content: document.getElementById('post-content').value,
+                    imageUrl: imageUrl,
+                    timestamp: serverTimestamp()
+                });
+                showFeedback('Đăng bài "News" thành công!', 'green', 'news');
+                postFormEl.reset();
+                postImagePreview.classList.add('hidden');
+            } catch (error) {
+                console.error("Lỗi khi đăng bài News: ", error);
+                showFeedback('Lỗi: ' + error.message, 'red', 'news');
+            } finally {
+                setLoading(false, 'news');
+            }
+        });
+
+        humansFormEl.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            setLoading(true, 'human');
+            try {
+                const coverImageUrl = await uploadImageToImgBB(humanCoverImageInput.files[0]);
+                const contentImageUrl = await uploadImageToImgBB(humanContentImageInput.files[0]);
+
+                await addDoc(collection(db, "humans"), {
+                    title: document.getElementById('human-title').value,
+                    coverImageUrl: coverImageUrl,
+                    contentImageUrl: contentImageUrl,
+                    story: document.getElementById('human-story').value,
+                    timestamp: serverTimestamp()
+                });
+                showFeedback('Đăng "Humans Story" thành công!', 'green', 'human');
+                humansFormEl.reset();
+                humanCoverImagePreview.classList.add('hidden');
+                humanContentImagePreview.classList.add('hidden');
+            } catch (error) {
+                console.error("Lỗi khi đăng Humans Story: ", error);
+                showFeedback('Lỗi: ' + error.message, 'red', 'human');
+            } finally {
+                setLoading(false, 'human');
+            }
+        });
+
+      });
+    </script>
+</body>
+</html>

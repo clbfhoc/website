@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang tải bài viết... - F-HỌC NEWS</title>
+    <meta name="description" content="Xem chi tiết các bài đăng, tin tức và sự kiện từ Câu lạc bộ F-HỌC.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .header-glass {
+             background: rgba(255, 255, 255, 0.85);
+             backdrop-filter: blur(10px);
+        }
+        /* Styling for post content */
+        .post-content h2 {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .post-content p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+        .post-content a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+        .post-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="header-glass sticky top-0 z-50 border-b border-gray-200/80">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">
+                <img src="https://i.ibb.co/XZJGDRWC/376711044-972555127379465-1600218481060437658-n-removebg-preview.png" alt="F-HỌC Logo" class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 hover:text-indigo-600">TRANG CHỦ</a>
+                <a href="f-hocnews.html" class="text-indigo-600">F-HỌC NEWS</a>
+                <a href="human.html" class="text-gray-600 hover:text-indigo-600">HUMANS OF F-HỌC</a>
+                <a href="mentor.html" class="text-gray-600 hover:text-indigo-600">MENTOR</a>
+                <a href="banchunhiem.html" class="text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+                <a href="contact.html" class="text-gray-600 hover:text-indigo-600">CONTACT</a>
+                <a href="ungtuyen.html" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all">
+                    ỨNG TUYỂN
+                </a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600">TRANG CHỦ</a>
+            <a href="f-hocnews.html" class="block py-2 text-indigo-600">F-HỌC NEWS</a>
+            <a href="human.html" class="block py-2 text-gray-600 hover:text-indigo-600">HUMANS OF F-HỌC</a>
+            <a href="mentor.html" class="block py-2 text-gray-600 hover:text-indigo-600">MENTOR</a>
+            <a href="banchunhiem.html" class="block py-2 text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+            <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600">CONTACT</a>
+            <a href="ungtuyen.html" class="block mt-2 text-center text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full font-semibold shadow-md">
+                ỨNG TUYỂN
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Post Section -->
+        <section id="post-section" class="py-20">
+            <div id="post-container" class="container mx-auto px-6 max-w-4xl">
+                <!-- Post content will be loaded here -->
+                <p class="text-center text-slate-500">Đang tải bài viết...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact-footer" class="bg-slate-800 text-slate-400">
+        <div class="container mx-auto px-6 py-10">
+            <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">F-HỌC</h3>
+                    <p class="text-slate-400">CLB Học thuật trường FPT.<br>Here we F, you learn.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Thông tin liên hệ</h3>
+                    <p class="mb-2"><strong>Email:</strong> <a href="mailto:contact.fhoc@fpt.edu.vn" class="hover:text-white">contact.fhoc@fpt.edu.vn</a></p>
+                    <p><strong>Fanpage:</strong> <a href="#" class="hover:text-white">fb.com/clb.fhoc</a></p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Theo dõi chúng tôi</h3>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="#" class="text-slate-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-700/50 mt-8 py-6">
+                <p class="text-center text-slate-500 text-sm">© 2025 F-HỌC Club. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyBUdTcUcncT4nB8utQnWyqYI0qU4SQTzq4",
+        authDomain: "f-hoc-website.firebaseapp.com",
+        projectId: "f-hoc-website",
+        storageBucket: "f-hoc-website.appspot.com",
+        messagingSenderId: "191480054688",
+        appId: "1:191480054688:web:5792bee8e8208b7f785ac5",
+        measurementId: "G-E26HVXWSLW"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore(app);
+
+      function getPostIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id');
+      }
+
+      function getCategoryColor(category) {
+        switch(category ? category.toLowerCase() : '') {
+            case 'sự kiện': return 'text-indigo-600';
+            case 'cuộc thi': return 'text-teal-600';
+            case 'thông báo': return 'text-rose-600';
+            default: return 'text-slate-500';
+        }
+      }
+
+      async function fetchAndDisplayPost() {
+        const postId = getPostIdFromUrl();
+        const postContainer = document.getElementById('post-container');
+
+        if (!postId) {
+            postContainer.innerHTML = '<p class="text-center text-red-500">Không tìm thấy bài viết. Vui lòng kiểm tra lại đường dẫn.</p>';
+            document.title = "Không tìm thấy bài viết - F-HỌC NEWS";
+            return;
+        }
+
+        try {
+            const docRef = doc(db, "news", postId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const post = docSnap.data();
+                
+                // Update page title
+                document.title = `${post.title} - F-HỌC NEWS`;
+
+                // Format timestamp
+                const date = post.timestamp.toDate();
+                const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                
+                const categoryColor = getCategoryColor(post.category);
+
+                postContainer.innerHTML = `
+                    <article>
+                        <span class="text-sm ${categoryColor} font-semibold">${post.category.toUpperCase()}</span>
+                        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2 mb-4">${post.title}</h1>
+                        <p class="text-slate-500 mb-8">Đăng ngày: ${formattedDate}</p>
+                        
+                        <img src="${post.imageUrl || 'https://placehold.co/1200x600/E0E7FF/4F46E5?text=F-HỌC'}" alt="${post.title}" class="w-full rounded-lg shadow-lg mb-8">
+                        
+                        <div class="post-content text-lg text-slate-600">
+                            ${post.content}
+                        </div>
+                    </article>
+                `;
+            } else {
+                postContainer.innerHTML = '<p class="text-center text-red-500">Bài viết không tồn tại hoặc đã bị xóa.</p>';
+                document.title = "Bài viết không tồn tại - F-HỌC NEWS";
+            }
+        } catch (error) {
+            console.error("Error fetching post: ", error);
+            postContainer.innerHTML = '<p class="text-center text-red-500">Đã có lỗi xảy ra khi tải bài viết.</p>';
+        }
+      }
+
+      // Fetch post on page load
+      fetchAndDisplayPost();
+    </script>
+</body>
+</html>

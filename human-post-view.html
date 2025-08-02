@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang tải câu chuyện... - Humans of F-HỌC</title>
+    <meta name="description" content="Xem chi tiết câu chuyện truyền cảm hứng từ thành viên Câu lạc bộ F-HỌC.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .header-glass {
+             background: rgba(255, 255, 255, 0.85);
+             backdrop-filter: blur(10px);
+        }
+        .post-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="header-glass sticky top-0 z-50 border-b border-gray-200/80">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">
+                <img src="https://i.ibb.co/XZJGDRWC/376711044-972555127379465-1600218481060437658-n-removebg-preview.png" alt="F-HỌC Logo" class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 hover:text-indigo-600">TRANG CHỦ</a>
+                <a href="f-hocnews.html" class="text-gray-600 hover:text-indigo-600">F-HỌC NEWS</a>
+                <a href="human.html" class="text-indigo-600">HUMANS OF F-HỌC</a>
+                <a href="mentor.html" class="text-gray-600 hover:text-indigo-600">MENTOR</a>
+                <a href="banchunhiem.html" class="text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+                <a href="contact.html" class="text-gray-600 hover:text-indigo-600">CONTACT</a>
+                <a href="ungtuyen.html" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all">
+                    ỨNG TUYỂN
+                </a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600">TRANG CHỦ</a>
+            <a href="f-hocnews.html" class="block py-2 text-gray-600 hover:text-indigo-600">F-HỌC NEWS</a>
+            <a href="human.html" class="block py-2 text-indigo-600">HUMANS OF F-HỌC</a>
+            <a href="mentor.html" class="block py-2 text-gray-600 hover:text-indigo-600">MENTOR</a>
+            <a href="banchunhiem.html" class="block py-2 text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+            <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600">CONTACT</a>
+            <a href="ungtuyen.html" class="block mt-2 text-center text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full font-semibold shadow-md">
+                ỨNG TUYỂN
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Post Section -->
+        <section id="post-section" class="py-20">
+            <div id="post-container" class="container mx-auto px-6 max-w-4xl">
+                <!-- Post content will be loaded here -->
+                <p class="text-center text-slate-500">Đang tải câu chuyện...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact-footer" class="bg-slate-800 text-slate-400">
+        <div class="container mx-auto px-6 py-10">
+            <!-- Footer content from other pages -->
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyBUdTcUcncT4nB8utQnWyqYI0qU4SQTzq4",
+        authDomain: "f-hoc-website.firebaseapp.com",
+        projectId: "f-hoc-website",
+        storageBucket: "f-hoc-website.appspot.com",
+        messagingSenderId: "191480054688",
+        appId: "1:191480054688:web:5792bee8e8208b7f785ac5",
+        measurementId: "G-E26HVXWSLW"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      function getPostIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id');
+      }
+
+      async function fetchAndDisplayPost() {
+        const postId = getPostIdFromUrl();
+        const postContainer = document.getElementById('post-container');
+
+        if (!postId) {
+            postContainer.innerHTML = '<p class="text-center text-red-500">Không tìm thấy câu chuyện. Vui lòng kiểm tra lại đường dẫn.</p>';
+            document.title = "Không tìm thấy - Humans of F-HỌC";
+            return;
+        }
+
+        try {
+            const docRef = doc(db, "humans", postId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const post = docSnap.data();
+                
+                document.title = `${post.title} - Humans of F-HỌC`;
+
+                postContainer.innerHTML = `
+                    <article>
+                        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 text-center mt-2 mb-8">${post.title}</h1>
+                        <div class="post-content text-lg text-slate-600 max-w-2xl mx-auto">
+                           <img src="${post.contentImageUrl || ''}" alt="Ảnh nội dung cho ${post.title}" class="w-full rounded-lg shadow-md mb-8 ${post.contentImageUrl ? '' : 'hidden'}">
+                           <p>${post.story.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    </article>
+                `;
+            } else {
+                postContainer.innerHTML = '<p class="text-center text-red-500">Câu chuyện không tồn tại hoặc đã bị xóa.</p>';
+                document.title = "Không tồn tại - Humans of F-HỌC";
+            }
+        } catch (error) {
+            console.error("Error fetching post: ", error);
+            postContainer.innerHTML = '<p class="text-center text-red-500">Đã có lỗi xảy ra khi tải câu chuyện.</p>';
+        }
+      }
+
+      fetchAndDisplayPost();
+    </script>
+</body>
+</html>

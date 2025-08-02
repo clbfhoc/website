@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humans of F-HỌC - Những Câu Chuyện Truyền Cảm Hứng</title>
+    <meta name="description" content="Khám phá những câu chuyện, góc nhìn và kỷ niệm đáng nhớ từ chính các thành viên của Câu lạc bộ F-HỌC.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .header-glass {
+             background: rgba(255, 255, 255, 0.85);
+             backdrop-filter: blur(10px);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #4f46e5;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="header-glass sticky top-0 z-50 border-b border-gray-200/80">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">
+                <img src="https://i.ibb.co/XZJGDRWC/376711044-972555127379465-1600218481060437658-n-removebg-preview.png" alt="F-HỌC Logo" class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="index.html" class="text-gray-600 hover:text-indigo-600">TRANG CHỦ</a>
+                <a href="f-hocnews.html" class="text-gray-600 hover:text-indigo-600">F-HỌC NEWS</a>
+                <a href="human.html" class="text-indigo-600">HUMANS OF F-HỌC</a>
+                <a href="mentor.html" class="text-gray-600 hover:text-indigo-600">MENTOR</a>
+                <a href="banchunhiem.html" class="text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+                <a href="contact.html" class="text-gray-600 hover:text-indigo-600">CONTACT</a>
+                <a href="ungtuyen.html" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all">
+                    ỨNG TUYỂN
+                </a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600">TRANG CHỦ</a>
+            <a href="f-hocnews.html" class="block py-2 text-gray-600 hover:text-indigo-600">F-HỌC NEWS</a>
+            <a href="human.html" class="block py-2 text-indigo-600">HUMANS OF F-HỌC</a>
+            <a href="mentor.html" class="block py-2 text-gray-600 hover:text-indigo-600">MENTOR</a>
+            <a href="banchunhiem.html" class="block py-2 text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+            <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600">CONTACT</a>
+            <a href="ungtuyen.html" class="block mt-2 text-center text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full font-semibold shadow-md">
+                ỨNG TUYỂN
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Humans Section -->
+        <section id="humans-of-fhoc" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h1 class="section-title reveal">Humans of F-HỌC</h1>
+                    <p class="mt-4 text-lg text-slate-500 max-w-2xl mx-auto reveal">Những câu chuyện truyền cảm hứng từ chính các thành viên của CLB.</p>
+                </div>
+                <div id="humans-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Human stories will be loaded here from Firebase -->
+                    <p class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-slate-500">Đang tải câu chuyện...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-800 text-slate-400">
+        <div class="container mx-auto px-6 py-10">
+            <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">F-HỌC</h3>
+                    <p class="text-slate-400">CLB Học thuật trường FPT.<br>Here we F, you learn.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Thông tin liên hệ</h3>
+                    <p class="mb-2"><strong>Email:</strong> <a href="mailto:contact.fhoc@fpt.edu.vn" class="hover:text-white">contact.fhoc@fpt.edu.vn</a></p>
+                    <p><strong>Fanpage:</strong> <a href="https://www.facebook.com/clbfhoc" target="_blank" class="hover:text-white">fb.com/clbfhoc</a></p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Theo dõi chúng tôi</h3>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="https://www.facebook.com/clbfhoc" target="_blank" class="text-slate-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-700/50 mt-8 py-6">
+                <p class="text-center text-slate-500 text-sm">© 2025 F-HỌC Club. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll reveal animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 50;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', reveal);
+        // Trigger on load
+        reveal();
+    </script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+      import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyBUdTcUcncT4nB8utQnWyqYI0qU4SQTzq4",
+        authDomain: "f-hoc-website.firebaseapp.com",
+        projectId: "f-hoc-website",
+        storageBucket: "f-hoc-website.appspot.com",
+        messagingSenderId: "191480054688",
+        appId: "1:191480054688:web:5792bee8e8208b7f785ac5",
+        measurementId: "G-E26HVXWSLW"
+      };
+    
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore(app);
+
+      async function fetchAllHumans() {
+        const humansContainer = document.getElementById('humans-container');
+        try {
+            const humansQuery = query(collection(db, "humans"), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(humansQuery);
+
+            if (querySnapshot.empty) {
+                humansContainer.innerHTML = '<p class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-slate-500">Chưa có câu chuyện nào.</p>';
+                return;
+            }
+
+            humansContainer.innerHTML = ''; 
+
+            querySnapshot.forEach((doc) => {
+                const human = doc.data();
+                const storyCard = `
+                    <a href="human-post-view.html?id=${doc.id}" class="bg-white rounded-lg shadow-md overflow-hidden group reveal border border-gray-200 flex flex-col hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                        <div class="relative overflow-hidden">
+                            <img src="${human.coverImageUrl || 'https://placehold.co/400x250/E0E7FF/4F46E5?text=F-HỌC'}" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-110" alt="${human.title}">
+                        </div>
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-semibold text-slate-800">${human.title}</h3>
+                        </div>
+                    </a>
+                `;
+                humansContainer.innerHTML += storyCard;
+            });
+            reveal();
+        } catch (error) {
+            console.error("Error fetching human stories: ", error);
+            humansContainer.innerHTML = '<p class="col-span-1 md:col-span-2 lg:col-span-3 text-center text-red-500">Không thể tải câu chuyện. Vui lòng thử lại sau.</p>';
+        }
+      }
+
+      fetchAllHumans();
+    </script>
+</body>
+</html>

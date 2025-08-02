@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLB F-HỌC - Here we F, you learn</title>
+    <meta name="description" content="F-HỌC là nơi quy tụ những học sinh tài năng, đam mê học hỏi và mong muốn phát triển bản thân tại trường FPT.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc; /* Light Gray background */
+            color: #334155; /* Dark Slate text */
+        }
+        .header-glass {
+             background: rgba(255, 255, 255, 0.85);
+             backdrop-filter: blur(10px);
+        }
+        /* --- Hero Section Styles --- */
+        .hero-container {
+            perspective: 1500px;
+        }
+        .hero-cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            transform-style: preserve-3d;
+            margin-top: 4rem;
+        }
+        .hero-card {
+            background-color: white;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .hero-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-card:nth-child(1) { transform: translateX(-60%) scale(0.8); z-index: 1; }
+        .hero-card:nth-child(2) { transform: translateX(-30%) scale(0.9); z-index: 2; }
+        .hero-card:nth-child(3) { transform: scale(1.1); z-index: 3; }
+        .hero-card:nth-child(4) { transform: translateX(30%) scale(0.9); z-index: 2; }
+        .hero-card:nth-child(5) { transform: translateX(60%) scale(0.8); z-index: 1; }
+
+        .hero-container:hover .hero-card {
+            transform: translateX(0) scale(1);
+        }
+        .hero-container:hover .hero-card:not(:hover) {
+            opacity: 0.8;
+            transform: scale(0.9);
+        }
+        .hero-card:hover {
+            z-index: 10 !important;
+            transform: scale(1.15) !important;
+        }
+        
+        .animated-title span {
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInLetter 0.5s forwards;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        @keyframes fadeInLetter {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* --- General Section Styles --- */
+        .section-bg {
+            background-color: #f8fafc;
+        }
+        .section-bg-alt {
+            background-color: #ffffff;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #4f46e5; /* Indigo */
+        }
+        
+        /* --- Ban Section Styles --- */
+        .ban-item.active {
+            background-color: #eef2ff;
+            color: #4f46e5;
+            border-left-color: #4f46e5;
+        }
+        .ban-item {
+             border-left: 3px solid transparent;
+             transition: all 0.3s ease;
+        }
+        .ban-item:hover {
+            background-color: #f8fafc;
+            color: #4338ca;
+        }
+
+
+        /* Scroll animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="header-glass sticky top-0 z-50 border-b border-gray-200/80">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#splash" class="text-2xl font-bold">
+                <img src="https://i.ibb.co/XZJGDRWC/376711044-972555127379465-1600218481060437658-n-removebg-preview.png" alt="F-HỌC Logo" class="h-12 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                <a href="#splash" class="text-indigo-600">TRANG CHỦ</a>
+                <a href="f-hocnews.html" class="text-gray-600 hover:text-indigo-600">F-HỌC NEWS</a>
+                <a href="human.html" class="text-gray-600 hover:text-indigo-600">HUMANS OF F-HỌC</a>
+                <a href="mentor.html" class="text-gray-600 hover:text-indigo-600">MENTOR</a>
+                <a href="banchunhiem.html" class="text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+                <a href="contact.html" class="text-gray-600 hover:text-indigo-600">CONTACT</a>
+                <a href="ungtuyen.html" class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all">
+                    ỨNG TUYỂN
+                </a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#splash" class="block py-2 text-indigo-600">TRANG CHỦ</a>
+            <a href="#f-hocnews" class="block py-2 text-gray-600 hover:text-indigo-600">F-HỌC NEWS</a>
+            <a href="#humans" class="block py-2 text-gray-600 hover:text-indigo-600">HUMANS OF F-HỌC</a>
+            <a href="#mentor" class="block py-2 text-gray-600 hover:text-indigo-600">MENTOR</a>
+            <a href="#banchunhiem" class="block py-2 text-gray-600 hover:text-indigo-600">BAN CHỦ NHIỆM</a>
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-indigo-600">CONTACT</a>
+            <a href="ungtuyen.html" class="block mt-2 text-center text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full font-semibold shadow-md">
+                ỨNG TUYỂN
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="splash" class="hero-container py-24 md:py-32 section-bg min-h-screen flex flex-col justify-center">
+            <div class="container mx-auto px-6 text-center">
+                <div class="relative z-20">
+                    <h1 class="text-5xl md:text-7xl font-extrabold text-slate-800 animated-title" style="text-shadow: 3px 3px 10px rgba(0,0,0,0.1);">
+                        <span style="--i:1">F</span>
+                        <span style="--i:2">-</span>
+                        <span style="--i:3">H</span>
+                        <span style="--i:4">Ọ</span>
+                        <span style="--i:5">C</span>
+                    </h1>
+                    <p class="mt-4 text-xl md:text-2xl font-semibold text-slate-500">Here we F, you learn</p>
+                </div>
+                <div class="hero-cards h-64 md:h-80">
+                    <div class="hero-card w-40 md:w-52 h-56 md:h-72"><img src="https://scontent.fvca4-1.fna.fbcdn.net/v/t39.30808-6/468469156_122185529882041357_651780711023191056_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=9Y-25pVa1o0Q7kNvwE5Fpug&_nc_oc=AdlriLUUTbxBwzQ-pH7pjdbHdPodipK-257uBZjlZQNbzCNpR2WVB-z8FLjeg8JI8qo&_nc_zt=23&_nc_ht=scontent.fvca4-1.fna&_nc_gid=1EE7tBWy56OP61MsH0aSqw&oh=00_AfRYhHB5UBzq3SX7h-g1R64qaIj9-Rmv8_kp3an16qo4XQ&oe=6893B399" alt="Hoạt động CLB 1"></div>
+                    <div class="hero-card w-40 md:w-52 h-56 md:h-72"><img src="https://scontent.fvca4-1.fna.fbcdn.net/v/t39.30808-6/487842321_122204627336041357_5744039667660089800_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_ohc=otVqj8rbWEUQ7kNvwE3uLda&_nc_oc=AdlTTMeERCCGTRhgCTP9F5v3MY47bmrPNrhZklU6I4NO_OyvBcpWr54u2y3rV3r-vGY&_nc_zt=23&_nc_ht=scontent.fvca4-1.fna&_nc_gid=9x3BIBbR4_heJ_EAMdj-ig&oh=00_AfRUB2XhK_c5-s5Rk_Y2zsaKn9FDEk1Ffz1s2OaekxOHSg&oe=6893BFA4" alt="Hoạt động CLB 2"></div>
+                    <div class="hero-card w-40 md:w-52 h-56 md:h-72"><img src="https://scontent.fvca4-1.fna.fbcdn.net/v/t39.30808-6/469038726_122186018000041357_5317427776809373984_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=8ewzVFLw9WcQ7kNvwHowHTE&_nc_oc=AdkN94jYl8wAOUl_fh57dTHNjZs9ohOA3jYQmsdAwwquSsrzVq_Eud1WZ2U9naRsiMg&_nc_zt=23&_nc_ht=scontent.fvca4-1.fna&_nc_gid=i_ZYqZzbC9IrzP2Sh1LBdg&oh=00_AfQ190nqNorC2R7nxgcR9HGaVqjnB9abKgfaGnfYnMRSiw&oe=6893BC2D" alt="Hoạt động CLB 3"></div>
+                    <div class="hero-card w-40 md:w-52 h-56 md:h-72"><img src="https://scontent.fvca4-1.fna.fbcdn.net/v/t39.30808-6/481132234_122197458794041357_71742833644037719_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=_Ot6aLTIBt4Q7kNvwEnZv3H&_nc_oc=AdmlV0E27RwCfhmo36rTpGfCjQAV2QvKFouTnbKlcjIslawaVy2aTmYTKJuEFx16ukM&_nc_zt=23&_nc_ht=scontent.fvca4-1.fna&_nc_gid=1EE7tBWy56OP61MsH0aSqw&oh=00_AfS3LjQVKqo0ZNwY2lk_Zb0fSysu69SO2yz7x3h6vubbHg&oe=6893C176" alt="Hoạt động CLB 4"></div>
+                    <div class="hero-card w-40 md:w-52 h-56 md:h-72"><img src="https://scontent.fvca4-1.fna.fbcdn.net/v/t39.30808-6/475458889_122194509548041357_5481751284091680438_n.jpg?stp=dst-jpg_p180x540_tt6&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=CMbtdmZKQskQ7kNvwG7E7E8&_nc_oc=Admp0Zgc3xV7faww4Cpywlu71L9dl3KtBcS518tK76Tn_KAbJD2RTdOAhWQZlPEofJU&_nc_zt=23&_nc_ht=scontent.fvca4-1.fna&_nc_gid=kbWG1_8ENA1NvFC50DyD9w&oh=00_AfQ9bAawdjw21TJG0u-VEGQNd1p4WHELpNApRDHywaFAOg&oe=6893A790" alt="Hoạt động CLB 5"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Section -->
+        <section id="success" class="py-20 section-bg-alt">
+            <div class="container mx-auto px-6 text-center">
+                <div class="reveal mb-12">
+                    <h2 class="section-title">Thành Công Của F-HỌC</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto reveal">
+                    <div>
+                        <p class="text-4xl font-bold text-slate-800">50+</p>
+                        <p class="text-sm text-slate-500 mt-2">Thành viên</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold text-slate-800">20+</p>
+                        <p class="text-sm text-slate-500 mt-2">Buổi học nhóm</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold text-slate-800">10+</p>
+                        <p class="text-sm text-slate-500 mt-2">Dự án & Cuộc thi</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold text-slate-800">100+</p>
+                        <p class="text-sm text-slate-500 mt-2">Tài liệu chia sẻ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentor Section -->
+        <section id="mentor" class="py-20 section-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="section-title reveal">MENTOR</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Mentor Card 1 -->
+                    <div class="bg-white p-6 rounded-lg flex items-center gap-6 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-200 reveal">
+                        <img src="https://i.ibb.co/PsPJRS4w/nguyen-tuyen-muoi-avt.png" alt="Mentor Nguyễn Tuyền Muội" class="w-24 h-24 rounded-full flex-shrink-0 object-cover border-2 border-indigo-200">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">Nguyễn Tuyền Muội</h3>
+                            <p class="text-indigo-600">Giáo viên Hướng dẫn</p>
+                        </div>
+                    </div>
+                    <!-- Mentor Card 2 -->
+                    <div class="bg-white p-6 rounded-lg flex items-center gap-6 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-200 reveal" style="transition-delay: 0.1s;">
+                        <img src="https://i.ibb.co/bMYQ9XNK/tran-phu-luan-avt.png" alt="Mentor Trần Phú Luận" class="w-24 h-24 rounded-full flex-shrink-0 object-cover border-2 border-indigo-200">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">Trần Phú Luận</h3>
+                            <p class="text-indigo-600">Giáo viên Hướng dẫn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ban Chu Nhiem Section -->
+        <section id="banchunhiem" class="py-20 section-bg-alt">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                     <h2 class="section-title reveal">BAN CHỦ NHIỆM</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Member Card -->
+                    <div class="text-center group reveal">
+                        <div class="relative w-32 h-32 md:w-40 md:h-40 mx-auto">
+                           <img src="https://i.ibb.co/cHCfvth/anh-khoa-avt.png" alt="Avatar Lê Nguyễn Đăng Khoa" class="rounded-full w-full h-full object-cover shadow-lg group-hover:shadow-xl transition-shadow">
+                        </div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Lê Nguyễn Đăng Khoa</h3>
+                        <p class="text-indigo-600 text-sm font-semibold">CHỦ TỊCH</p>
+                    </div>
+                     <!-- Member Card -->
+                    <div class="text-center group reveal" style="transition-delay: 0.1s;">
+                        <div class="relative w-32 h-32 md:w-40 md:h-40 mx-auto">
+                           <img src="https://i.ibb.co/vttggSh/dinh-cherry-avt.png" alt="Avatar Quách Huệ Đình" class="rounded-full w-full h-full object-cover shadow-lg group-hover:shadow-xl transition-shadow">
+                        </div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Quách Huệ Đình</h3>
+                        <p class="text-indigo-600 text-sm font-semibold">PHÓ CHỦ TỊCH</p>
+                    </div>
+                     <!-- Member Card -->
+                    <div class="text-center group reveal" style="transition-delay: 0.2s;">
+                        <div class="relative w-32 h-32 md:w-40 md:h-40 mx-auto">
+                           <img src="https://i.ibb.co/RGpY5Hg8/chi-hoa-avt.png" alt="Avatar Trương Huỳnh Mỹ Hoa" class="rounded-full w-full h-full object-cover shadow-lg group-hover:shadow-xl transition-shadow">
+                        </div>
+                        <h3 class="mt-4 text-lg font-bold text-slate-800">Trương Huỳnh Mỹ Hoa</h3>
+                        <p class="text-indigo-600 text-sm font-semibold">THƯ KÝ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media Section -->
+        <section id="social" class="py-20 section-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="section-title reveal">SOCIAL MEDIA</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <!-- Social Card -->
+                    <a href="#" class="bg-white p-6 rounded-lg flex flex-col items-center justify-center gap-4 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-200 text-center reveal">
+                        <svg class="w-10 h-10 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <p class="font-semibold text-slate-700">Facebook</p>
+                    </a>
+                    <!-- Social Card -->
+                    <a href="#" class="bg-white p-6 rounded-lg flex flex-col items-center justify-center gap-4 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-200 text-center reveal" style="transition-delay: 0.1s;">
+                        <svg class="w-10 h-10 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.356 2.175 8.744 2.163 12 2.163m0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                        <p class="font-semibold text-slate-700">Instagram</p>
+                    </a>
+                    <!-- Social Card -->
+                    <a href="#" class="bg-white p-6 rounded-lg flex flex-col items-center justify-center gap-4 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-200 text-center reveal" style="transition-delay: 0.2s;">
+                         <svg class="w-10 h-10 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                        <p class="font-semibold text-slate-700">YouTube</p>
+                    </a>
+                    <!-- Social Card -->
+                    <a href="#" class="bg-white p-6 rounded-lg flex flex-col items-center justify-center gap-4 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-200 text-center reveal" style="transition-delay: 0.3s;">
+                        <svg class="w-10 h-10 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512"><path d="M412 129c-41 0-77-24-92-59h-58v278c0 28-23 51-51 51s-51-23-51-51 23-51 51-51c5 0 10 .7 15 2V228c-5-1-10-1-15-1-71 0-129 58-129 129s58 129 129 129 129-58 129-129V209c27 13 58 20 90 20h6v-100h-6z"/></svg>
+                        <p class="font-semibold text-slate-700">TikTok</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cac Ban Section -->
+        <section id="cacban" class="py-20 section-bg-alt">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="section-title reveal">CÁC BAN</h2>
+                </div>
+                <div class="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto reveal">
+                    <!-- Ban List -->
+                    <div class="flex-shrink-0 md:w-1/4">
+                        <ul id="ban-list">
+                            <li class="ban-item active p-4 cursor-pointer font-semibold" data-target="ban-cm">🌟 Ban Chuyên môn</li>
+                            <li class="ban-item p-4 cursor-pointer font-semibold" data-target="ban-tt">🎶 Ban Truyền thông</li>
+                            <li class="ban-item p-4 cursor-pointer font-semibold" data-target="ban-ns">🌤️ Ban NS-HC-TC</li>
+                            <li class="ban-item p-4 cursor-pointer font-semibold" data-target="ban-dn">💕 Ban Đối ngoại</li>
+                        </ul>
+                    </div>
+                    <!-- Ban Content -->
+                    <div class="flex-1 bg-white p-8 rounded-lg border border-gray-200 min-h-[300px]">
+                        <div id="ban-cm" class="ban-content-item space-y-4">
+                            <h3 class="text-2xl font-bold text-indigo-600 mb-4">Ban Chuyên môn</h3>
+                            <p class="text-slate-600"><strong>Mô tả:</strong> Các bạn sẽ tham gia với vai trò là người giúp đỡ các bạn có nền tảng kiến thức chưa vững và hỗ trợ các bạn lấy lại gốc trong môn học thuộc phân ban của bản thân. Hoạt động chủ yếu tại các lớp học phụ đạo, đóng vai trò như trợ giảng.</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-2">
+                                <li><strong>Các môn chính:</strong> Toán, Lý, Hóa, Tiếng Anh.</li>
+                                <li><strong>Trưởng ban:</strong> Quản lý nhân sự và công việc của các thành viên.</li>
+                                <li><strong>Trưởng môn:</strong> Thu thập tài liệu và phân công cho các thành viên trong môn mình quản lý.</li>
+                                <li><strong>Thành viên:</strong> Bắt buộc tham gia 100% các hoạt động được phổ biến.</li>
+                            </ul>
+                        </div>
+                         <div id="ban-tt" class="ban-content-item hidden space-y-4">
+                            <h3 class="text-2xl font-bold text-indigo-600">Ban Truyền thông</h3>
+                            <p class="text-slate-600"><strong>Mô tả:</strong> Hoạt động chủ yếu trên 2 nền tảng chính là Tiktok (podcast) và Facebook (thông báo, sự kiện, hình ảnh).</p>
+                             <ul class="list-disc list-inside text-slate-600 space-y-2">
+                                <li><strong>Trưởng ban:</strong> Lên kế hoạch, đo lường hiệu quả và quản lý thành viên.</li>
+                                <li><strong>Tiểu ban content:</strong> Viết và lên ý tưởng content.</li>
+                                <li><strong>Tiểu ban podcast:</strong> Thu âm và lên kịch bản cho podcast.</li>
+                                <li><strong>Tiểu ban design:</strong> Thiết kế các ấn phẩm truyền thông.</li>
+                                <li><strong>Photographer:</strong> Chụp ảnh/video làm tư liệu.</li>
+                            </ul>
+                        </div>
+                         <div id="ban-ns" class="ban-content-item hidden space-y-4">
+                            <h3 class="text-2xl font-bold text-indigo-600">Ban Nhân sự - Hậu cần - Tài chính</h3>
+                            <p class="text-slate-600"><strong>Mô tả:</strong> Tham gia vào các sự kiện với vai trò là Ban Tổ Chức, giúp nâng cao kinh nghiệm qua việc xây dựng kế hoạch tài chính hay trải nghiệm thực tế.</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-2">
+                                <li><strong>Trưởng ban:</strong> Quản lý nhân sự toàn CLB, điều phối sự kiện.</li>
+                                <li><strong>Thủ quỹ:</strong> Quản lý thu chi, dự trù kinh phí cho các hoạt động.</li>
+                                <li><strong>Thành viên:</strong> Tham gia và trải nghiệm trong các hoạt động, sự kiện của CLB.</li>
+                            </ul>
+                        </div>
+                         <div id="ban-dn" class="ban-content-item hidden space-y-4">
+                            <h3 class="text-2xl font-bold text-indigo-600">Ban Đối ngoại</h3>
+                            <p class="text-slate-600"><strong>Mô tả:</strong> Trao đổi với đối tác trong và ngoài CLB, chủ yếu là liên hệ với học sinh và giáo viên để đề nghị hợp tác.</p>
+                            <ul class="list-disc list-inside text-slate-600 space-y-2">
+                               <li><strong>Trưởng ban:</strong> Phân công, quản lý công việc, phân tích đối tượng hợp tác.</li>
+                               <li><strong>Thành viên:</strong> Liên hệ với các thầy cô, CLB để đàm phán và trao đổi.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- F-HOC NEWS Section (Moved) -->
+        <section id="f-hocnews" class="py-20 section-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="section-title reveal">F-HỌC NEWS</h2>
+                </div>
+                <div id="news-grid" class="grid md:grid-cols-3 gap-8">
+                    <!-- News items will be loaded here from Firebase -->
+                    <p class="col-span-3 text-center text-slate-500">Đang tải tin tức...</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer / Contact Section -->
+    <footer id="contact" class="bg-slate-800 text-slate-400">
+        <div class="container mx-auto px-6 py-10">
+            <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">F-HỌC</h3>
+                    <p class="text-slate-400">CLB Học thuật trường FPT.<br>Here we F, you learn.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Thông tin liên hệ</h3>
+                    <p class="mb-2"><strong>Email:</strong> <a href="mailto:contact.fhoc@fpt.edu.vn" class="hover:text-white">contact.fhoc@fpt.edu.vn</a></p>
+                    <p><strong>Fanpage:</strong> <a href="#" class="hover:text-white">fb.com/clb.fhoc</a></p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Theo dõi chúng tôi</h3>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="#" class="text-slate-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-700/50 mt-8 py-6">
+                <p class="text-center text-slate-500 text-sm">© 2025 F-HỌC Club. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Cac Ban Tabs
+        const banListItems = document.querySelectorAll('#ban-list li');
+        const banContentItems = document.querySelectorAll('.ban-content-item');
+
+        banListItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all items
+                banListItems.forEach(i => i.classList.remove('active'));
+                // Add active class to the clicked item
+                item.classList.add('active');
+
+                const targetId = item.dataset.target;
+                
+                // Hide all content items
+                banContentItems.forEach(content => content.classList.add('hidden'));
+                // Show the target content item
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll reveal animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 50;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', reveal);
+        // Trigger on load
+        reveal();
+    </script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+      import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+      
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBUdTcUcncT4nB8utQnWyqYI0qU4SQTzq4",
+        authDomain: "f-hoc-website.firebaseapp.com",
+        projectId: "f-hoc-website",
+        storageBucket: "f-hoc-website.appspot.com",
+        messagingSenderId: "191480054688",
+        appId: "1:191480054688:web:5792bee8e8208b7f785ac5",
+        measurementId: "G-E26HVXWSLW"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore(app);
+
+      // Function to fetch and display news
+      async function fetchNews() {
+        const newsGrid = document.getElementById('news-grid');
+        try {
+            // Query the first 3 news items, ordered by timestamp
+            const newsQuery = query(collection(db, "news"), orderBy("timestamp", "desc"), limit(3));
+            const querySnapshot = await getDocs(newsQuery);
+
+            if (querySnapshot.empty) {
+                newsGrid.innerHTML = '<p class="col-span-3 text-center text-slate-500">Chưa có tin tức nào.</p>';
+                return;
+            }
+
+            // Clear loading message
+            newsGrid.innerHTML = ''; 
+
+            querySnapshot.forEach((doc) => {
+                const news = doc.data();
+                const newsCard = `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden group reveal border border-gray-200 flex flex-col">
+                        <div class="relative overflow-hidden">
+                            <img src="${news.imageUrl || 'https://placehold.co/400x250/E0E7FF/4F46E5?text=F-HỌC'}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" alt="${news.title}">
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-semibold text-slate-800 flex-grow mb-4">${news.title}</h3>
+                            <a href="post-view.html?id=${doc.id}" target="_blank" class="mt-auto inline-block bg-indigo-600 hover:bg-indigo-700 text-white text-center font-bold py-2 px-4 rounded-full shadow-lg transition-transform transform hover:scale-105">
+                                Xem thêm
+                            </a>
+                        </div>
+                    </div>
+                `;
+                newsGrid.innerHTML += newsCard;
+            });
+        } catch (error) {
+            console.error("Error fetching news: ", error);
+            newsGrid.innerHTML = '<p class="col-span-3 text-center text-red-500">Không thể tải tin tức. Vui lòng thử lại sau.</p>';
+        }
+      }
+
+      // Fetch news on page load
+      fetchNews();
+
+    </script>
+</body>
+</html>
